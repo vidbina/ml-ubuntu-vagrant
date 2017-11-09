@@ -1,8 +1,12 @@
 {
   "variables": {
-    "name": "vidbina/ml-bench",
+    "name": "ml-bench",
+    "author": "vidbina",
     "memory": "2048",
     "disk_size": "20480",
+    "locale": "nl_NL.UTF-8",
+    "language": "nl",
+    "country": "NL",
     "iso_url": "http://releases.ubuntu.com/17.10/ubuntu-17.10-desktop-amd64.iso",
     "iso_checksum": "aaf4ba1809e08f6108f1e410174ebcbd49af5cc4f6493ab3d98d0683289bbc6e",
     "iso_checksum_type": "sha256"
@@ -10,6 +14,7 @@
   "builders": [
     {
       "type": "virtualbox-iso",
+      "name": "{{ user `name` }}",
 
       "guest_os_type": "Ubuntu_64",
 
@@ -33,6 +38,8 @@
         "debug-ubiquity ",
         "automatic-ubiquity ",
         "initrd=/casper/initrd.lz ",
+        "locale={{user `locale`}} ",
+        "hostname={{ user `name` }} ",
         "boot=casper ",
         "noprompt ",
         "--- ",
