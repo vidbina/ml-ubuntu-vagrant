@@ -47,7 +47,12 @@
       ],
 
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}"]
+        ["modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}"],
+        ["modifyvm", "{{.Name}}", "--vram", "128"],
+        ["modifyvm", "{{.Name}}", "--graphicscontroller", "vboxvga"],
+        ["modifyvm", "{{.Name}}", "--monitorcount", "1"],
+        ["modifyvm", "{{.Name}}", "--accelerate2dvideo", "on"],
+        ["modifyvm", "{{.Name}}", "--accelerate3d", "on"]
       ]
     }
   ]
