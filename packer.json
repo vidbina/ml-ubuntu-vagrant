@@ -18,7 +18,8 @@
   "builders": [
     {
       "type": "virtualbox-iso",
-      "name": "{{ user `name` }}",
+      "name": "packer-{{ user `name` }}",
+      "vm_name": "packer-{{ user `name` }}",
 
       "guest_os_type": "Ubuntu_64",
 
