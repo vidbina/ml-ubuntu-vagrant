@@ -30,11 +30,12 @@
 
       "ssh_username": "{{ user `ssh_username` }}",
       "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_timeout": "20m",
 
-      "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
+      "shutdown_command": "echo 'packer' | sudo -S poweroff",
 
       "http_directory": "preseed",
-      "boot_wait": "4s",
+      "boot_wait": "5s",
       "boot_command": [
         "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
@@ -65,6 +66,13 @@
         ["modifyvm", "{{.Name}}", "--accelerate2dvideo", "on"],
         ["modifyvm", "{{.Name}}", "--accelerate3d", "on"]
       ]
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "script": "scripts/vagrant.sh",
+      "type": "shell"
     }
   ]
 }
