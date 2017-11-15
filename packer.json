@@ -81,5 +81,10 @@
       "script": "scripts/virtualbox.sh",
       "type": "shell"
     }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant"
+    }
   ]
 }
