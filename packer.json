@@ -20,7 +20,6 @@
       "type": "virtualbox-iso",
       "name": "packer-{{ user `name` }}",
       "vm_name": "packer-{{ user `name` }}",
-      "keep_registered": "true",
 
       "guest_os_type": "Ubuntu_64",
 
