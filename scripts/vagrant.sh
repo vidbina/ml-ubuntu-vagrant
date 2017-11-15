@@ -5,4 +5,4 @@ chmod 0440 /etc/sudoers.d/vagrant
 
 usermod -a -G sudo vagrant
 
-apt-get install -y nfs-common
+#apt-get install -y nfs-common
