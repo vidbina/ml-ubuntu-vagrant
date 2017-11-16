@@ -44,7 +44,7 @@
         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "auto ",
         "noapic ",
-        "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/cbednarski_packer-ubuntu_preseed.cfg ",
+        "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/basic.cfg ",
         "debconf/frontend=noninteractive ",
         "fb=true ",
         "debian-installer=en_US ",
