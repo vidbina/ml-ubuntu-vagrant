@@ -31,7 +31,7 @@
 
       "ssh_username": "{{ user `ssh_username` }}",
       "ssh_password": "{{ user `ssh_password` }}",
-      "ssh_timeout": "20m",
+      "ssh_timeout": "1h",
 
       "shutdown_command": "echo 'packer' | sudo -S poweroff",
 
