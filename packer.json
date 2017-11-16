@@ -27,6 +27,9 @@
       "iso_checksum": "{{ user  `iso_checksum` }}",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
 
+      "guest_additions_url": "http://download.virtualbox.org/virtualbox/5.1.26/VBoxGuestAdditions_5.1.26.iso",
+      "guest_additions_sha256": "6df8c8ab6e7ac3a70a5e29116f8a5dcdb7dfbd0b226ef849a5cd9502e956b06f",
+
       "disk_size": "{{ user `disk_size` }}",
 
       "ssh_username": "{{ user `ssh_username` }}",
