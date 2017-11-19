@@ -94,9 +94,9 @@
         "type": "vagrant-cloud",
         "access_token": "{{ user `vagrantcloud_token` }}",
         "box_tag": "vidbina/ml-env",
-        "version": "{{ user `version` }}",
+        "version": "{{ user `image_version` }}",
         "no_release": "true",
-        "version_description": "blank Ubuntu env"
+        "version_description": "{{ user `image_description` }}"
       }
     ]
   ]

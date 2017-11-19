@@ -1,7 +1,9 @@
 VERSION:=$(shell cat VERSION)
+DESCRIPTION:=${DESCRIPTION}
 USER_VARS=\
 	-var 'vagrantcloud_token=${VAGRANTCLOUD_TOKEN}' \
-	-var 'version=${VERSION}'
+	-var 'image_version=${VERSION}' \
+	-var 'image_description=${DESCRIPTION}'
 
 validate:
 	packer validate ${USER_VARS} packer.json
