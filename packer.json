@@ -87,6 +87,14 @@
   "post-processors": [
     {
       "type": "vagrant"
+    },
+    {
+      "type": "vagrant-cloud",
+      "access_token": "{{ user `vagrantcloud_token` }}",
+      "box_tag": "vidbina/ml-env",
+      "version": "{{ user `version` }}",
+      "no_release": "true",
+      "version_description": "blank Ubuntu env"
     }
   ]
 }
