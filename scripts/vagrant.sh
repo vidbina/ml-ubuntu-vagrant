@@ -1,4 +1,5 @@
 #!/bin/bash
+# See: https://github.com/cbednarski/packer-ubuntu/blob/master/scripts-1604/vagrant.sh
 
 echo "%vagrant ALL=NOPASSWD:ALL" > /etc/sudoers.d/vagrant
 chmod 0440 /etc/sudoers.d/vagrant
