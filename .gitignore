@@ -1,3 +1,11 @@
+.env
+.vagrant/
+
+# Cache objects
+packer_cache/
+
+# For built boxes
 *.box
-.vagrant
-packer_cache
+
+# For build artifacts
+*.vdi
