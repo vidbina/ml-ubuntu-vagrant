@@ -1,0 +1,104 @@
+{
+  "variables": {
+    "name": "ml-env",
+    "memory": "2048",
+    "disk_size": "20480",
+    "locale": "en_US.UTF-8",
+    "language": "en",
+    "country": "NL",
+    "hostname": "ml",
+    "vagrantcloud_tag": "vidbina/ml-env",
+
+    "iso_url": "http://releases.ubuntu.com/xenial/ubuntu-16.04.3-server-amd64.iso",
+    "iso_checksum": "a06cd926f5855d4f21fb4bc9978a35312f815fbda0d0ef7fdc846861f4fc4600",
+    "iso_checksum_type": "sha256",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "name": "packer-{{ user `name` }}",
+      "vm_name": "packer-{{ user `name` }}",
+
+      "guest_os_type": "Ubuntu_64",
+
+      "iso_url": "{{ user `iso_url`}}",
+      "iso_checksum": "{{ user  `iso_checksum` }}",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+
+      "guest_additions_url": "http://download.virtualbox.org/virtualbox/5.1.26/VBoxGuestAdditions_5.1.26.iso",
+      "guest_additions_sha256": "6df8c8ab6e7ac3a70a5e29116f8a5dcdb7dfbd0b226ef849a5cd9502e956b06f",
+
+      "disk_size": "{{ user `disk_size` }}",
+
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_timeout": "1h",
+      "shutdown_command": "echo 'packer' | sudo -S poweroff",
+
+      "http_directory": "preseed",
+      "boot_wait": "5s",
+      "boot_command": [
+        "<wait><enter><wait><f6><esc>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "auto ",
+        "noapic ",
+        "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/basic.cfg ",
+        "debconf/frontend=noninteractive ",
+        "fb=true ",
+        "debian-installer=en_US ",
+        "locale={{ user `locale` }} ",
+        "kbd-chooser/method=us ",
+        "keyboard-configuration/modelcode=SKIP ",
+        "keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "hostname={{ user `hostname` }} ",
+        "initrd=/install/initrd.gz ",
+        "-- ",
+        "<enter>"
+      ],
+
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}"],
+        ["modifyvm", "{{.Name}}", "--vram", "128"],
+        ["modifyvm", "{{.Name}}", "--graphicscontroller", "vboxvga"],
+        ["modifyvm", "{{.Name}}", "--monitorcount", "1"],
+        ["modifyvm", "{{.Name}}", "--accelerate2dvideo", "on"],
+        ["modifyvm", "{{.Name}}", "--accelerate3d", "on"]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "script": "scripts/vagrant.sh",
+      "type": "shell"
+    },
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "script": "scripts/virtualbox.sh",
+      "type": "shell"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "vagrant"
+      },
+      {
+        "type": "vagrant-cloud",
+
+        "access_token": "{{ user `vagrantcloud_token` }}",
+        "box_tag": "{{ user `vagrantcloud_tag` }}",
+        "version": "{{ user `image_version` }}",
+        "version_description": "{{ user `image_description` }}"
+      }
+    ]
+  ]
+}
